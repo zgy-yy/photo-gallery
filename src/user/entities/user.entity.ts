@@ -3,12 +3,14 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  ManyToOne,
 } from 'typeorm';
+import { Role } from './role.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  userId: number;
+  id: number;
 
   @Column({ length: 100 })
   userName: string;
@@ -24,4 +26,7 @@ export class User {
 
   @Column({ nullable: true })
   avatarURL: string;
+
+  @ManyToOne(()=>Role,(role)=>role.users)
+  role:Role
 }

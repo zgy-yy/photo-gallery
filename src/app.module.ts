@@ -10,6 +10,11 @@ import { PhotoModule } from './photo/photo.module';
 import { Photo } from './photo/entities/photo.entity';
 import { Category } from './photo/entities/category.entity';
 import { Tag } from './photo/entities/tag.entity';
+import { PhotoMetadata } from './photo/entities/photoMeta.entity';
+import { Role } from './user/entities/role.entity';
+import {ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -23,9 +28,13 @@ import { Tag } from './photo/entities/tag.entity';
     password:'admin',
     database:'photo_gallery_db',
     synchronize:true,
-    logging:['error'],
-    entities:[User,Photo,Category,Tag]
-  }),  UserModule, PhotoModule
+    logging:['query','error'],
+    entities:[User,Role,Photo,Category,Tag,PhotoMetadata]
+  }), 
+  ServeStaticModule.forRoot({
+    rootPath:join(__dirname,'..','uploads')
+  }),
+  UserModule, PhotoModule, 
  ],
   controllers: [AppController],
   providers: [AppService],

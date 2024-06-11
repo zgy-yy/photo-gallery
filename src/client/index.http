@@ -1,0 +1,45 @@
+@url = http://localhost:3000
+
+GET {{url}}/user HTTP/1.1
+Content-Type: application/json
+
+###
+POST {{url}}/user HTTP/1.1
+Content-Type: application/json
+
+{
+    "user":"tom",
+    "password":"2333raffeg"
+}
+
+
+
+
+### 上传
+POST {{url}}/photo/upload HTTP/1.1
+Content-Type: boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="b.png"
+Content-Type: image/jpeg
+
+ < ./b.png
+--boundary--
+
+### 照片
+GET {{url}}/photo HTTP/1.1
+Content-Type: application/json
+
+### 照片分页查询
+GET {{url}}/photo/page?limit=3&page=2 HTTP/1.1
+Content-Type: application/json
+
+
+### 照片ID查询
+GET {{url}}/photo/2 HTTP/1.1
+Content-Type: application/json
+
+
+### 照片地点查询
+GET {{url}}/photo/location/KPtoMy4fk1 HTTP/1.1
+Content-Type: application/json
